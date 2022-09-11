@@ -1,0 +1,15 @@
+.headerContainer {
+  display: flex;
+  width: calc(100% - 2rem);
+  height: 3rem;
+  background-color: #4B0082;
+  justify-content: space-between;
+  align-items: center;
+  padding-inline: 2rem;
+  color: white;
+}
+
+.headerContainer span {
+  font-size: 1rem;
+  font-weight: 600;
+}
