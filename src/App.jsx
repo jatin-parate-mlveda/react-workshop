@@ -5,14 +5,14 @@ function App() {
   const [name, setName] = useState({ value: "", error: null });
 
   const onNameChange = (e) => {
-    const newValue = e.target.value.trim();
-    const error = Boolean(newValue)
-      ? newValue === "invalid"
+    const value = e.target.value.trim();
+    const error = Boolean(value)
+      ? value === "invalid"
         ? "Invalid value"
         : null
       : "Required!";
     return setName({
-      value: newValue,
+      value: e.target.value,
       error,
     });
   };
