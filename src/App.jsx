@@ -25,23 +25,33 @@ function App() {
           e.preventDefault();
         }}
       >
-        <div className="form-group">
-          <label htmlFor="name">Name</label>
-          <input
-            autoComplete="off"
-            value={name.value}
-            onChange={onNameChange}
-            name="name"
-            type="text"
-            className={`form-control ${name.error ? "is-invalid" : ""}`}
-            id="name"
-            placeholder="Enter name"
-          />
-          {name.error && <div className="invalid-feedback">{name.error}</div>}
+        <div className="d-flex flex-column" style={{ gap: "1rem" }}>
+          <div className="row">
+            <div className="form-group">
+              <label htmlFor="name">Name</label>
+              <input
+                autoComplete="off"
+                value={name.value}
+                onChange={onNameChange}
+                name="name"
+                type="text"
+                className={`form-control ${name.error ? "is-invalid" : ""}`}
+                id="name"
+                placeholder="Enter name"
+              />
+              {name.error && (
+                <div className="invalid-feedback">{name.error}</div>
+              )}
+            </div>
+          </div>
+          <div className="row">
+            <div className="col col-auto">
+              <button type="submit" className="btn btn-primary">
+                Submit
+              </button>
+            </div>
+          </div>
         </div>
-        <button type="submit" className="btn btn-primary">
-          Submit
-        </button>
       </form>
     </div>
   );
