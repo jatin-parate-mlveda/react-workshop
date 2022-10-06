@@ -1,24 +1,38 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import "./App.css";
+import { apiURL, postsApiAxios } from "./constants";
 
 function Content() {
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [posts, setPosts] = useState([]);
   const [getPostsLoading, setGetPostsLoading] = useState(true);
+  // delete, put, post, get
 
   useEffect(() => {
     const abortController = new AbortController();
     if (!loading && !isError) {
       setGetPostsLoading(true);
-      axios
-        .get("http://localhost:3000/posts", {
+     axios 
+        .get('/posts', {
           signal: abortController.signal,
+          params: {
+            _sort: "id",
+            _order: "desc",
+          },
+          baseURL: apiURL
         })
         .then((res) => {
           setPosts(res.data);
           setGetPostsLoading(false);
+        })
+        .catch((err) => {
+          // AxiosError
+          if (err instanceof AxiosError) {
+          } else {
+          }
+          console.log(err);
         });
     }
 
