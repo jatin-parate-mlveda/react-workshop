@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useLayoutEffect, useState } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 import "./App.css";
 import TaskEdit from "./TaskEdit";
 import TaskInput from "./TaskInput";
@@ -9,8 +10,11 @@ import TodoListItem from "./TodoListItem";
 import { addNewTask, deleteTask, editTask } from "./helpers";
 import { fetchToDoes } from "./todoAxios";
 import LoadingPage from "./LoadingPage";
+import createResource from "./createResource";
 
-function App() {
+// const toDosResource = createResource(fetchToDoes("asc"));
+
+function TodoApp() {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [fetchToDoesError, setFetchToDoesError] = useState(null);
@@ -82,6 +86,16 @@ function App() {
         ))}
       </TasksList>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <ErrorBoundary fallback={<h1>Something went wrong!</h1>}>
+      <Suspense fallback={<LoadingPage />}>
+        <TodoApp />
+      </Suspense>
+    </ErrorBoundary>
   );
 }
 
