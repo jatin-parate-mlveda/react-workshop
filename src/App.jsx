@@ -1,4 +1,5 @@
 import { Suspense, useEffect, useState } from "react";
+import Gravatar from "react-gravatar";
 import { ErrorBoundary } from "react-error-boundary";
 import "./App.css";
 import TaskEdit from "./TaskEdit";
@@ -97,7 +98,14 @@ function TodoAppWithUser() {
     <div>
       <nav className="navbar navbar-dark bg-dark">
         <span className="navbar-brand mb-0 h1 mr-auto">ToDos</span>
-        <span className="text-white">{currentUser.name}</span>
+        {/* <span className="text-white">{currentUser.name}</span> */}
+        <div style={{ overflow: "hidden" }} className="bg-info rounded-circle">
+          <Gravatar
+            style={{ width: "2rem", height: "2rem" }}
+            title={currentUser.name}
+            email={currentUser.email}
+          />
+        </div>
       </nav>
       <TodoApp />
     </div>
