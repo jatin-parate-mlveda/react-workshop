@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useLayoutEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import "./App.css";
 import TaskEdit from "./TaskEdit";
@@ -11,8 +11,9 @@ import { addNewTask, deleteTask, editTask } from "./helpers";
 import { fetchToDoes } from "./todoAxios";
 import LoadingPage from "./LoadingPage";
 import createResource from "./createResource";
+import axios from "axios";
 
-// const toDosResource = createResource(fetchToDoes("asc"));
+const userResource = createResource(axios.get("/user").then((res) => res.data));
 
 function TodoApp() {
   const [tasks, setTasks] = useState([]);
@@ -54,7 +55,7 @@ function TodoApp() {
   };
 
   return (
-    <div className="container mt-3">
+    <div className="container mt-4">
       <TaskInput
         onSortClick={onSort}
         sortDirection={sortDirection}
@@ -89,11 +90,25 @@ function TodoApp() {
   );
 }
 
+function TodoAppWithUser() {
+  const currentUser = userResource.read();
+
+  return (
+    <div>
+      <nav className="navbar navbar-dark bg-dark">
+        <span className="navbar-brand mb-0 h1 mr-auto">ToDos</span>
+        <span className="text-white">{currentUser.name}</span>
+      </nav>
+      <TodoApp />
+    </div>
+  );
+}
+
 function App() {
   return (
     <ErrorBoundary fallback={<h1>Something went wrong!</h1>}>
       <Suspense fallback={<LoadingPage />}>
-        <TodoApp />
+        <TodoAppWithUser />
       </Suspense>
     </ErrorBoundary>
   );

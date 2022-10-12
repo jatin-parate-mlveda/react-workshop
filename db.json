@@ -11,5 +11,9 @@
       "createdAt": "2022-10-12T10:52:01.266Z",
       "id": 2
     }
-  ]
+  ],
+  "user": {
+    "name": "jatin",
+    "email": "jatin.parate@mlveda.com"
+  }
 }

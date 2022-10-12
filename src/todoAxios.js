@@ -1,5 +1,7 @@
 import axios from "axios";
 
+axios.defaults.baseURL = "http://localhost:3001";
+
 const todoAxios = axios.create({
   baseURL: "http://localhost:3001/todos",
 });
